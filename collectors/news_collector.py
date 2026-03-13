@@ -1,29 +1,18 @@
 import requests
 
-API_KEY = ""
-
+from config.settings import CRYPTOPANIC_API_KEY
 
 def fetch_news():
-    url = f"https://cryptopanic.com/api/v1/posts/?auth_token={API_KEY}&public=true"
+    if not CRYPTOPANIC_API_KEY:
+        raise ValueError("Missing CRYPTOPANIC_API_KEY in config/settings.py or environment")
+
+    url = f'https://cryptopanic.com/api/developer/v2/posts/?auth_token={CRYPTOPANIC_API_KEY}&public=true'
 
     response = requests.get(url)
-
-    print(response)
-
-    data = response.json()
-
-    news = []
-
-    print(data)
-
-    # for post in data["results"]:
-    #     news.append({
-    #         "title": post["title"], 
-    #         "url": post["url"], 
-    #         "source": post["source"]["title"], 
-    #         "published": post["published_at"]
-    #     })
-    return data
-
-def print_helloWorld(): 
-    print("Hello World")
+    if response.status_code == 200: 
+        news_data = response.json() 
+        for post in news_data['results']: 
+            print(f"Title: {post['title']}")
+            print(f"Description: {post['description']}")
+    else: 
+        print('Failed to fetch news')

@@ -15,7 +15,7 @@ def main():
     signal = generate_signal(sentiment_json)
     print("Generated Signal:", signal)
 
-    send_signal()
+    send_signal(signal)
 
 if __name__ == "__main__":
     main()

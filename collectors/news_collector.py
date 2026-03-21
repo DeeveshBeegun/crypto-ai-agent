@@ -14,8 +14,6 @@ def fetch_news():
         news_data = response.json() 
         collected_posts = []
         for post in news_data['results']: 
-            # print(f"Title: {post['title']}")
-            # print(f"Description: {post['description']}")
             collected_posts.append(
                 f"Title: {post['title']}\nDescription: {post['description']}"
             )

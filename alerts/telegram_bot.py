@@ -2,7 +2,7 @@ from config.settings import TELEGRAM_BOT
 from config.settings import TELEGRAM_CHATID
 import requests
 
-def send_signal():
+def send_signal(signal: str):
 
   url_requests = f"https://api.telegram.org/bot{TELEGRAM_BOT}/getUpdates"
 
@@ -12,7 +12,7 @@ def send_signal():
 
   payload = {
       "chat_id": TELEGRAM_CHATID, 
-      "text": "Test message from crypto ai bot"
+      "text": signal
   }
 
   requests.post(url, json=payload)

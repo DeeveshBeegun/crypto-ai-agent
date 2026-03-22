@@ -22,7 +22,7 @@ Return strict JSON only
 Fields: 
 coin
 sentiment as bullish, bearish or neutral
-confidence score in percentage
+confidence score between 0 - 100
 reason
 
 News: 

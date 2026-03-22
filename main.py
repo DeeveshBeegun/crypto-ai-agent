@@ -6,11 +6,19 @@ from alerts.telegram_bot import send_signal
 import requests
 
 def main(): 
+    sentiment_json_array = []
+
     print("Fetching News...")
     news = fetch_news()
 
     sentiment_json = analyse_news(news)
-    print("SENTIMENT_JSON:", sentiment_json)
+    # print("SENTIMENT_JSON:", sentiment_json)
+    # sentiment_json_array.append(sentiment_json)
+    # print(sentiment_json_array)
+
+    # for signal in sentiment_json_array: 
+    #     signal = "Generated Signal:", generate_signal(signal)
+    #     send_signal(signal)
 
     signal = generate_signal(sentiment_json)
     print("Generated Signal:", signal)

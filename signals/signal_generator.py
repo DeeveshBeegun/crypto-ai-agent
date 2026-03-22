@@ -1,5 +1,6 @@
 import json 
 import re 
+import html
 
 def _extract_json(raw_text: str) -> dict:
     if not raw_text or not raw_text.strip(): 
@@ -32,19 +33,19 @@ def generate_signal(sentiment_json: str) -> dict:
     except (TypeError, ValueError):
         confidence = 0
 
-    confidence = max(0, min(100, confidence))
+    confidence_score = max(0, min(100, confidence))
 
     if sentiment == "bullish":
-        if confidence >= 80:
+        if confidence_score >= 80:
             action = "STRONG_BUY"
-        elif confidence >= 60: 
+        elif confidence_score >= 60: 
             action = "BUY"
         else: 
             action = "HOLD"
     elif sentiment == "bearish":
-        if confidence >= 80: 
+        if confidence_score >= 80: 
             action = "STRONG_SELL"
-        elif confidence >= 60: 
+        elif confidence_score >= 60: 
             action = "SELL"
         else: 
             action = "HOLD"
@@ -52,7 +53,7 @@ def generate_signal(sentiment_json: str) -> dict:
     return {
         "coin": coin, 
         "sentiment": sentiment, 
-        "confidence_score": confidence, 
+        "confidence_score": confidence_score, 
         "signal": action, 
         "reason": data.get("reason", "")
     }
